@@ -1,61 +1,180 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 🚗 Vehicle Booking System – Smart Fleet Management
 
-## About Laravel
+**Vehicle Booking System** adalah platform manajemen kendaraan digital yang dirancang untuk memudahkan proses peminjaman, pengembalian, dan pelacakan histori penggunaan kendaraan dalam sebuah organisasi. Sistem ini ditujukan untuk efisiensi logistik internal, meningkatkan transparansi penggunaan aset, serta mendukung proses monitoring driver dan kendaraan secara real-time.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Tentang Vehicle Booking System
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Platform ini dikembangkan sebagai solusi pemesanan dan pengelolaan kendaraan yang efisien dan aman. Fokus utama aplikasi adalah memastikan bahwa setiap pemesanan terkontrol, kendaraan selalu dalam kondisi prima, dan pengguna dapat melakukan pelaporan kondisi setelah penggunaan secara mandiri.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🎯 Tujuan Pengembangan
 
-## Laravel Sponsors
+* 🚙 Mempermudah peminjaman kendaraan dinas secara sistematis
+* ✅ Menyediakan sistem persetujuan berjenjang untuk transparansi dan kontrol internal
+* 📋 Mendukung pencatatan histori perjalanan dan kondisi kendaraan secara akurat
+* 👨‍✈️ Melacak ketersediaan dan status pengemudi dalam sistem
+* 📊 Memberikan dashboard manajemen untuk admin agar mudah melakukan monitoring
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🔍 Fitur-Fitur Utama
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### ✅ **Booking Approval System**
 
-## Contributing
+Peminjaman kendaraan melalui alur persetujuan bertingkat:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* **Level 1 Approval:** Biasanya supervisor atau atasan langsung
+* **Level 2 Approval:** Pihak manajemen/administrator
 
-## Code of Conduct
+### 🧾 **Self Booking & Driver Assignment**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* Pengguna dapat memilih kendaraan yang tersedia
+* Menentukan opsi pengemudi:
 
-## Security Vulnerabilities
+  * **Self Drive**
+  * **Assigned Driver** (jika tersedia)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 📦 **Vehicle Return & Condition Report**
 
-## License
+* Pengembalian kendaraan dilakukan via form digital
+* Form mencatat:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+  * Waktu kembali
+  * Odometer awal dan akhir
+  * Konsumsi bahan bakar (liter)
+  * Catatan kondisi kendaraan
+* Sistem menghitung otomatis konsumsi **fuel per kilometer**
+
+### 📚 **Booking History Log**
+
+* Riwayat penggunaan kendaraan disimpan sebagai arsip
+* Data mencakup: kendaraan, pengguna, waktu tempuh, konsumsi BBM, dan kondisi kendaraan saat dikembalikan
+
+### 🧍‍♂️ **Driver Management**
+
+* Admin dapat mengelola daftar driver
+* Setiap driver memiliki status: `on_duty`, `off_duty`, atau `inactive`
+
+### 🚗 **Vehicle Availability Management**
+
+* Setiap kendaraan memiliki status: `available`, `in_use`
+* Status akan diperbarui otomatis saat proses booking dan return
+
+---
+
+## 🧰 Tech Stack
+
+| Kategori          | Teknologi                                |
+| ----------------- | ---------------------------------------- |
+| Backend           | PHP 8.3.13 + Laravel 12                  |
+| Frontend          | Blade + Tailwind CSS                     |
+| Database          | MySQL                                    |
+| Authentication    | Laravel Breeze                           |
+
+---
+
+## ⚙️ Instalasi & Setup
+
+### 📥 Clone Repository
+
+```bash
+git clone <https://github.com/username/vehicle-booking-system.git>
+cd vehicle-booking-system
+```
+
+### 📦 Install Dependency
+
+```bash
+composer install
+npm install && npm run dev
+```
+
+### 🛠️ Setup Environment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Konfigurasi `.env` untuk database dan lainnya sesuai kebutuhan.
+
+### 🧪 Migrasi Database
+
+```bash
+php artisan migrate --seed
+```
+
+---
+
+## 🔐 Demo Credentials
+
+| Role       | Email                                                   | Password |
+| ---------- | ------------------------------------------------------- | -------- |
+| Admin      | [admin@example.com](mailto:admin@example.com)           | password |
+| Supervisor | [supervisor@example.com](mailto:supervisor@example.com) | password |
+| Manager    | [manager@example.com](mailto:manager@example.com)       | password |
+| Employee   | [employee@example.com](mailto:employee@example.com)     | password |
+
+
+Sip, masbro! Jadi berdasarkan klarifikasi struktur role dan alur approval-nya, berikut ini versi teks yang menjelaskan **peran masing-masing role secara garis besar**, rapi dan cocok dimasukin ke README teknikal:
+
+---
+
+### 👤 **Deskripsi Role Pengguna**
+
+Aplikasi ini menggunakan sistem role-based access control untuk mengatur alur peminjaman kendaraan dan pengelolaan data. Berikut adalah penjelasan singkat mengenai masing-masing peran:
+
+#### 🔧 **Admin**
+
+Bertanggung jawab atas seluruh proses *CRUD master data*, termasuk:
+
+* Menambah, mengubah, dan menghapus data **user**, **kendaraan**, **driver**, dan **vendor**.
+* Tidak terlibat dalam proses approval booking kendaraan.
+* Memiliki akses penuh ke seluruh halaman pengaturan dan manajemen.
+
+#### 🧑‍💼 **Manager**
+
+Berperan dalam proses **Approval Tahap 1**:
+
+* Meninjau dan menyetujui atau menolak permintaan booking kendaraan yang diajukan oleh karyawan.
+* Hanya bisa memproses booking yang belum disetujui oleh supervisor.
+* Dapat melihat histori booking dan penggunaan kendaraan.
+
+#### 🧑‍💼 **Supervisor**
+
+Berperan dalam proses **Approval Tahap 2** (final approval):
+
+* Menyetujui booking yang telah lolos dari manager.
+* Bertanggung jawab atas validasi akhir sebelum kendaraan digunakan.
+* Dapat memantau status kendaraan, booking aktif, dan laporan histori.
+
+#### 👷 **Employee**
+
+Merupakan **pengguna utama** yang melakukan peminjaman kendaraan:
+
+* Mengisi form booking kendaraan.
+* Menunggu proses approval dari manager dan supervisor.
+* Setelah selesai menggunakan kendaraan, wajib mengisi form pengembalian (return vehicle), termasuk info odometer, konsumsi bahan bakar, dan kondisi kendaraan.
+
+
+
+---
+
+## 🛡️ Keamanan & Privasi
+
+* Akses peminjaman dibatasi hanya untuk pengguna terdaftar
+* Terdapat pembatasan **maksimal satu booking aktif** per user
+* Semua data booking dan histori bersifat **terproteksi dan tersimpan secara internal**
+* Validasi ketat pada setiap input untuk menjaga integritas data
+
+---
+
+
+
+

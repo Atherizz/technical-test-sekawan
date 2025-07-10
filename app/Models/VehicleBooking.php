@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class VehicleBooking extends Model
 {
@@ -34,4 +35,10 @@ public function approvedByLevel2()
 {
     return $this->belongsTo(User::class, 'approved_by_level_2');
 }
+
+public function booking_histories()
+{
+    return $this->hasMany(BookingHistory::class);
+}
+
 }

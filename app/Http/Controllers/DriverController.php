@@ -35,23 +35,23 @@ class DriverController extends Controller
         return redirect('/dashboard/drivers')->with('success', 'Driver created!');
     }
 
-    public function show(string $id)
+    public function show(Driver $driver)
     {
         return view('dashboard.drivers.show', [
             'title' => 'Driver Detail',
-            'driver' => Driver::findOrFail($id),
+            'driver' => $driver,
         ]);
     }
 
-    public function edit(string $id)
+    public function edit(Driver $driver)
     {
         return view('dashboard.drivers.edit', [
             'title' => 'Edit Driver',
-            'driver' => Driver::findOrFail($id),
+            'driver' => $driver,
         ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Driver $driver)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:100',
@@ -59,15 +59,14 @@ class DriverController extends Controller
             'status' => 'required|in:available,on_duty,inactive',
         ]);
 
-        $driver = Driver::findOrFail($id);
         $driver->update($validated);
 
         return redirect('/dashboard/drivers')->with('success', 'Driver updated!');
     }
 
-    public function destroy(string $id)
+    public function destroy(Driver $driver)
     {
-        Driver::destroy($id);
+        Driver::destroy($driver->id);
         return redirect('/dashboard/drivers')->with('success', 'Driver deleted!');
     }
 }

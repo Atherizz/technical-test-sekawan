@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('booking_id')->constrained('vehicle_bookings')->onDelete('cascade');
             $table->dateTime('return_time');
+            $table->decimal('fuel_consumed', 8, 2)->nullable(); 
+            $table->integer('start_odometer')->nullable();
+            $table->integer('end_odometer')->nullable();
+            $table->decimal('fuel_per_km', 8, 4)->nullable();
+            $table->text('condition_note')->nullable();
             $table->timestamps();
         });
     }

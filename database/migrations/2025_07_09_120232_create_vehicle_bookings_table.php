@@ -18,15 +18,14 @@ return new class extends Migration
             $table->dateTime('departure_time');
             $table->text('purpose');
             $table->foreignId('driver_id')->nullable()->constrained('drivers')->onDelete('set null');
-            $table->enum('status', ['pending', 'approved_1', 'approved_2', 'rejected']);
-            $table->text('note_level_1')->nullable();
-            $table->text('note_level_2')->nullable();
+            $table->enum('status', ['pending', 'approved_1', 'approved_2'])->default('pending');
             $table->timestamp('approved_at_level_1')->nullable();
             $table->timestamp('approved_at_level_2')->nullable();
             $table->foreignId('approved_by_level_1')->nullable()->constrained('users');
             $table->foreignId('approved_by_level_2')->nullable()->constrained('users');
+            $table->boolean('is_returned')->default(false);
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

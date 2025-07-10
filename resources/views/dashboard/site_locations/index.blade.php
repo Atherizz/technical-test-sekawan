@@ -2,8 +2,8 @@
     <main class="flex-1 overflow-y-auto p-6">
         <div class="mb-6 flex justify-between items-center">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">location Location Management</h1>
-                <p class="text-gray-600">Manage your location Locations and their details</p>
+                <h1 class="text-2xl font-bold text-gray-800"> Location Management</h1>
+                <p class="text-gray-600">Manage your Locations and their details</p>
             </div>
             <button class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg flex items-center">
                 <i class="fas fa-plus mr-2"></i> Add location Location

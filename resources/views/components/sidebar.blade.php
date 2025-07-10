@@ -3,7 +3,7 @@
     <div class="p-4 border-b border-gray-200">
         <div class="flex items-center space-x-2 text-primary-700">
             <i class="fas fa-truck-moving text-2xl"></i>
-            <h1 class="text-xl font-bold">FleetTrack</h1>
+            <h1 class="text-xl font-bold">PinjamMobil</h1>
         </div>
     </div>
 
@@ -49,22 +49,29 @@
                 <li>
                     <a href="/admin/dashboard/site_location"
                         class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
-                        <i class="fas fa-map-marker-alt w-5"></i> <!-- cocok buat lokasi -->
+                        <i class="fas fa-map-marker-alt w-5"></i>
                         <span>Site Location</span>
                     </a>
                 </li>
                 <li>
                     <a href="/admin/dashboard/vehicle_booking"
                         class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
-                        <i class="fas fa-calendar-check w-5"></i> <!-- cocok buat booking -->
+                        <i class="fas fa-calendar-check w-5"></i>
                         <span>Vehicle Booking</span>
                     </a>
                 </li>
                 <li>
                     <a href="/admin/dashboard/maintenance_schedule"
                         class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
-                        <i class="fas fa-tools w-5"></i> <!-- cocok buat maintenance -->
+                        <i class="fas fa-tools w-5"></i>
                         <span>Maintenance Schedule</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/dashboard/booking_history"
+                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
+                        <i class="fas fa-clock w-5"></i>
+                        <span>Booking History</span>
                     </a>
                 </li>
 
@@ -82,10 +89,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="/dashboard"
                         class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
-                        <i class="fas fa-question-circle w-5"></i>
-                        <span>Help</span>
+                        <i class="fas fa-home w-5"></i>
+                        <span>Back to Home</span>
                     </a>
                 </li>
             </ul>
@@ -99,8 +106,8 @@
                 <span>AD</span>
             </div>
             <div>
-                <p class="font-medium text-sm">Admin</p>
-                <p class="text-xs text-gray-500">admin@fleettrack.com</p>
+                <p class="font-medium text-sm">{{ auth()->User()->name }}</p>
+                <p class="text-xs text-gray-500">{{ auth()->User()->email }}</p>
             </div>
         </div>
     </div>

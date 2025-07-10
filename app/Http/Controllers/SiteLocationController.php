@@ -35,27 +35,27 @@ class SiteLocationController extends Controller
         return redirect('/dashboard/site-locations')->with('success', 'Location created!');
     }
 
-    public function show(string $id)
+    public function show(SiteLocation $siteLocation)
     {
-        $location = SiteLocation::findOrFail($id);
+        
 
         return view('dashboard.site_locations.show', [
             'title' => 'Detail Location',
-            'location' => $location
+            'location' => $siteLocation
         ]);
     }
 
-    public function edit(string $id)
+    public function edit(SiteLocation $siteLocation)
     {
-        $location = SiteLocation::findOrFail($id);
+
 
         return view('dashboard.site_locations.edit', [
             'title' => 'Edit Location',
-            'location' => $location
+            'location' => $siteLocation
         ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, SiteLocation $siteLocation)
     {
         $validated = $request->validate([
             'location_name' => 'required',
@@ -63,15 +63,14 @@ class SiteLocationController extends Controller
             'address' => 'required',
         ]);
 
-        $location = SiteLocation::findOrFail($id);
-        $location->update($validated);
+        $siteLocation->update($validated);
 
         return redirect('/dashboard/site-locations')->with('success', 'Location updated!');
     }
 
-    public function destroy(string $id)
+    public function destroy(SiteLocation $siteLocation)
     {
-        SiteLocation::destroy($id);
+        SiteLocation::destroy($siteLocation->id);
         return redirect('/dashboard/site-locations')->with('success', 'Location deleted!');
     }
 }

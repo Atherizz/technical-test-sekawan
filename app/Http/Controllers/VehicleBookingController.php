@@ -7,14 +7,27 @@ use App\Models\VehicleBooking;
 use App\Models\Vehicle;
 use App\Models\User;
 use App\Models\Driver;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class VehicleBookingController extends Controller
 {
     public function index()
     {
+        $query = VehicleBooking::with(['vehicle', 'user', 'driver'])->where([
+            ['status', '!=', 'rejected'],
+            ['is_returned', '=', false]
+        ]);
+
+        if (request('status')) {
+            $query->where('status', request('status'));
+        }
+
+        $bookings = $query->get();
+
         return view('dashboard.vehicle_bookings.index', [
             'title' => 'Bookings',
-            'bookings' => VehicleBooking::with(['vehicle', 'user', 'driver'])->get()
+            'bookings' => $bookings
         ]);
     }
 
@@ -28,63 +41,56 @@ class VehicleBookingController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'vehicle_id' => 'required|exists:vehicles,id',
-            'departure_time' => 'required|date',
-            'return_time' => 'required|date|after_or_equal:departure_time',
-            'purpose' => 'required|string',
-            'driver_id' => 'nullable|exists:drivers,id',
-            'status' => 'required|in:pending,partially_approved,fully_approved,rejected',
-        ]);
 
-        VehicleBooking::create($validated);
 
-        return redirect('/dashboard/vehicle-bookings')->with('success', 'Booking created!');
-    }
-
-    public function show(string $id)
+    public function show(VehicleBooking $vehicleBooking)
     {
         return view('dashboard.vehicle_bookings.show', [
             'title' => 'Booking Detail',
-            'booking' => VehicleBooking::with(['vehicle', 'user', 'driver'])->findOrFail($id)
+            'booking' => $vehicleBooking->load(['vehicle', 'user', 'driver'])
         ]);
     }
-
-    public function edit(string $id)
+    public function managerApprove(int $id)
     {
-        return view('dashboard.vehicle_bookings.edit', [
-            'title' => 'Edit Booking',
-            'booking' => VehicleBooking::findOrFail($id),
-            'vehicles' => Vehicle::all(),
-            'users' => User::all(),
-            'drivers' => Driver::all()
-        ]);
-    }
+         Gate::authorize('manager');
 
-    public function update(Request $request, string $id)
-    {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'vehicle_id' => 'required|exists:vehicles,id',
-            'departure_time' => 'required|date',
-            'return_time' => 'required|date|after_or_equal:departure_time',
-            'purpose' => 'required|string',
-            'driver_id' => 'nullable|exists:drivers,id',
-            'status' => 'required|in:pending,partially_approved,fully_approved,rejected',
+        $vehicleBooking = VehicleBooking::findOrFail($id);
+
+        if (!$vehicleBooking->vehicle->isAvailableFor()) {
+            return redirect('/admin/dashboard/vehicle_booking')->with('error', 'Vehicle already in use or under maintenance!');
+        }
+
+        $vehicleBooking->update([
+            'status' => 'approved_1',
+            'approved_at_level_1' => now(),
+            'approved_by_level_1' => Auth::id()
+
         ]);
 
-        $booking = VehicleBooking::findOrFail($id);
-        $booking->update($validated);
-
-        return redirect('/dashboard/vehicle-bookings')->with('success', 'Booking updated!');
+        return redirect('/admin/dashboard/vehicle_booking')->with('success', 'status updated!');
     }
 
-    public function destroy(string $id)
+    public function supervisorApprove(int $id)
     {
-        VehicleBooking::destroy($id);
-        return redirect('/dashboard/vehicle-bookings')->with('success', 'Booking deleted!');
+
+
+        Gate::authorize('supervisor');
+        
+        $vehicleBooking = VehicleBooking::findOrFail($id);
+
+        $vehicleBooking->update([
+            'status' => 'approved_2',
+            'approved_at_level_2' => now(),
+            'approved_by_level_2' => Auth::id()
+        ]);
+
+        return redirect('/admin/dashboard/vehicle_booking')->with('success', 'status updated!');
+    }
+
+
+    public function destroy(VehicleBooking $vehicleBooking)
+    {
+        $vehicleBooking->delete();
+        return redirect('/admin/dashboard/vehicle_booking')->with('success', 'Booking rejected!');
     }
 }

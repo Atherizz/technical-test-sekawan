@@ -13,7 +13,7 @@ class VehicleController extends Controller
     {
         return view('dashboard.vehicles.index', [
             'title' => 'Vehicle List',
-            'vehicles' => Vehicle::with([ 'siteLocation', 'rentalVendor'])->latest()->get()
+            'vehicles' => Vehicle::with([ 'siteLocation', 'rentalVendor'])->latest()->paginate(5),
             
         ]);
     }
@@ -47,9 +47,8 @@ class VehicleController extends Controller
         return redirect('/dashboard/vehicles')->with('success', 'Vehicle added successfully!');
     }
 
-    public function edit(int $id)
+    public function edit(Vehicle $vehicle)
     {
-        $vehicle = Vehicle::findOrFail($id);
 
         return view('dashboard.vehicles.edit', [
             'title' => 'Edit Vehicle',
@@ -59,12 +58,11 @@ class VehicleController extends Controller
         ]);
     }
 
-    public function update(Request $request, int $id)
+    public function update(Request $request, Vehicle $vehicle)
     {
-        $vehicle = Vehicle::findOrFail($id);
 
         $validate = $request->validate([
-            'license_plate' => 'required|unique:vehicles,license_plate,' . $id,
+            'license_plate' => 'required|unique:vehicles,license_plate,' . $vehicle->id,
             'brand' => 'required',
             'model' => 'required',
             'year' => 'required|digits:4',
@@ -86,13 +84,13 @@ class VehicleController extends Controller
         return redirect('/dashboard/vehicles')->with('success', 'Vehicle deleted successfully!');
     }
 
-    public function show(string $id)
+    public function show(Vehicle $vehicle)
     {
-        // Optional: kalau mau detail page
-        $vehicle = Vehicle::with(['vehicleType', 'siteLocation', 'rentalVendor'])->findOrFail($id);
+
+        // $vehicle = Vehicle::with(['vehicleType', 'siteLocation', 'rentalVendor'])->findOrFail($id);
         return view('dashboard.vehicles.show', [
             'title' => 'Vehicle Detail',
-            'vehicle' => $vehicle
+            'vehicle' => $vehicle->load(['vehicleType', 'siteLocation', 'rentalVendor'])
         ]);
     }
 }

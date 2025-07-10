@@ -19,12 +19,12 @@ class VehicleBookingFactory extends Factory
      */
 public function definition(): array
 {
-    $status = $this->faker->randomElement(['pending', 'approved_1', 'approved_2', 'rejected']);
+    $status = $this->faker->randomElement(['pending', 'approved_1', 'approved_2']);
 
     $departure = $this->faker->dateTimeBetween('now', '+3 days');
 
     return [
-        'user_id'       => User::inRandomOrder()->value('id'),
+        'user_id'       => null,
         'vehicle_id'    => Vehicle::inRandomOrder()->value('id'),
         'departure_time'=> $departure,
         'purpose'       => $this->faker->sentence(),

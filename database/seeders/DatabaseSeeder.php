@@ -35,10 +35,18 @@ class DatabaseSeeder extends Seeder
             ]
     );
 
-        Driver::factory(5)->create();
+    $users = User::inRandomOrder()->take(4)->get();
+
+        Driver::factory(10)->create();
         Vehicle::factory(20)->create();
         MaintenanceSchedule::factory(10)->create();
-        VehicleBooking::factory(10)->create();
+
+        foreach ($users as $user) {
+    VehicleBooking::factory()->create([
+        'user_id' => $user->id,
+    ]);
+}
+        
 
     }
 }
