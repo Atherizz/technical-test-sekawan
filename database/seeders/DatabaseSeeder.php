@@ -2,7 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Driver;
+use App\Models\MaintenanceSchedule;
+use App\Models\RentalVendor;
+use App\Models\Role;
 use App\Models\User;
+use App\Models\Vehicle;
+use App\Models\VehicleBooking;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -24,8 +30,15 @@ class DatabaseSeeder extends Seeder
             [
             RoleSeeder::class,
             SiteLocationSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            RentalVendorSeeder::class
             ]
     );
+
+        Driver::factory(5)->create();
+        Vehicle::factory(20)->create();
+        MaintenanceSchedule::factory(10)->create();
+        VehicleBooking::factory(10)->create();
+
     }
 }

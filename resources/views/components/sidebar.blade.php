@@ -13,19 +13,15 @@
             <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">DASHBOARD</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg bg-primary-50 text-primary-700 font-medium">
+                    <a href="#"
+                        class="flex items-center space-x-3 p-3 rounded-lg bg-primary-50 text-primary-700 font-medium">
                         <i class="fas fa-chart-pie w-5"></i>
                         <span>Overview</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
-                        <i class="fas fa-map-marked-alt w-5"></i>
-                        <span>Live Tracking</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
+                    <a href="#"
+                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
                         <i class="fas fa-chart-line w-5"></i>
                         <span>Analytics</span>
                     </a>
@@ -34,42 +30,62 @@
         </div>
 
         <div class="mb-8">
-            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">MANAJEMEN</h3>
+            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">MANAGEMENT</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
+                    <a href="/admin/dashboard/vehicles"
+                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
                         <i class="fas fa-car w-5"></i>
-                        <span>Kendaraan</span>
+                        <span>Vehicle</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
+                    <a href="/admin/dashboard/drivers"
+                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
                         <i class="fas fa-users w-5"></i>
-                        <span>Pengemudi</span>
+                        <span>Driver</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
-                        <i class="fas fa-route w-5"></i>
-                        <span>Rute</span>
+                    <a href="/admin/dashboard/site_location"
+                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
+                        <i class="fas fa-map-marker-alt w-5"></i> <!-- cocok buat lokasi -->
+                        <span>Site Location</span>
                     </a>
                 </li>
+                <li>
+                    <a href="/admin/dashboard/vehicle_booking"
+                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
+                        <i class="fas fa-calendar-check w-5"></i> <!-- cocok buat booking -->
+                        <span>Vehicle Booking</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/dashboard/maintenance_schedule"
+                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
+                        <i class="fas fa-tools w-5"></i> <!-- cocok buat maintenance -->
+                        <span>Maintenance Schedule</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
 
         <div>
-            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">LAINNYA</h3>
+            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">OTHER</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
+                    <a href="#"
+                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
                         <i class="fas fa-cog w-5"></i>
-                        <span>Pengaturan</span>
+                        <span>Setting</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
+                    <a href="#"
+                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
                         <i class="fas fa-question-circle w-5"></i>
-                        <span>Bantuan</span>
+                        <span>Help</span>
                     </a>
                 </li>
             </ul>

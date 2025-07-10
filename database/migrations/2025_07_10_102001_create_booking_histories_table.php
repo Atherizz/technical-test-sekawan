@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('maintenance_schedules', function (Blueprint $table) {
+        Schema::create('booking_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_id')->constrained('vehicles')->onDelete('cascade');
-            $table->date('maintenance_date');
-            $table->string('description');
-            $table->enum('status', ['scheduled', 'completed']);
+            $table->foreignId('booking_id')->constrained('vehicle_bookings')->onDelete('cascade');
+            $table->dateTime('return_time');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('maintenance_schedule');
+        Schema::dropIfExists('booking_histories');
     }
 };

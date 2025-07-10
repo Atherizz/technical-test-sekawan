@@ -12,9 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -26,11 +24,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('/dashboard/drivers', DriverController::class);
-Route::resource('/dashboard/maintenance', MaintenanceScheduleController::class);
-Route::resource('/dashboard/site_location', SiteLocationController::class);
-Route::resource('/dashboard/vehicle_booking', VehicleBookingController::class);
-Route::resource('/dashboard/vehicle', VehicleController::class);
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+    return view('dashboard.dashboard');
+    })->name('admin.dashboard');
+    Route::resource('/admin/dashboard/drivers', DriverController::class);
+    Route::resource('/admin/dashboard/maintenance_schedule', MaintenanceScheduleController::class);
+    Route::resource('/admin/dashboard/site_location', SiteLocationController::class);
+    Route::resource('/admin/dashboard/vehicle_booking', VehicleBookingController::class);
+    Route::resource('/admin/dashboard/vehicles', controller: VehicleController::class);
+});
 
 
 require __DIR__.'/auth.php';

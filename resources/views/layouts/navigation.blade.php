@@ -37,6 +37,11 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+                        @can('admin')
+                        <x-dropdown-link :href="route('admin.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-dropdown-link>
+                        @endcan
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

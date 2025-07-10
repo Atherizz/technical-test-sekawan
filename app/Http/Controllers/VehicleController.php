@@ -13,7 +13,8 @@ class VehicleController extends Controller
     {
         return view('dashboard.vehicles.index', [
             'title' => 'Vehicle List',
-            'vehicles' => Vehicle::with(['vehicleType', 'siteLocation', 'rentalVendor'])->latest()->get()
+            'vehicles' => Vehicle::with([ 'siteLocation', 'rentalVendor'])->latest()->get()
+            
         ]);
     }
 

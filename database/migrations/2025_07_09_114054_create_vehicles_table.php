@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('license_plate');
             $table->string('brand');
-            $table->string('model');
             $table->enum('vehicle_type', ['passenger', 'cargo']);
             $table->foreignId('site_location_id')->constrained('site_locations')->onDelete('cascade');
-            $table->enum('ownership_status', ['company_owned', 'rented']);
+            $table->enum('ownership_status', ['company owned', 'rented']);
             $table->foreignId('rental_vendor_id')->nullable()->constrained('rental_vendors')->onDelete('set null');
             $table->enum('operational_status', ['active', 'in_service', 'inactive']);
+            $table->enum('availability_status', ['available', 'booked', 'in_use'])->default('available');
             $table->timestamps();
         });
     }
