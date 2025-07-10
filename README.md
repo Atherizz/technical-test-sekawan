@@ -122,9 +122,7 @@ php artisan migrate --seed
 | Employee   | [employee@example.com](mailto:employee@example.com)     | password |
 
 
-Sip, masbro! Jadi berdasarkan klarifikasi struktur role dan alur approval-nya, berikut ini versi teks yang menjelaskan **peran masing-masing role secara garis besar**, rapi dan cocok dimasukin ke README teknikal:
 
----
 
 ### 👤 **Deskripsi Role Pengguna**
 
