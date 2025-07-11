@@ -51,6 +51,23 @@ Peminjaman kendaraan melalui alur persetujuan bertingkat:
 * Setiap kendaraan memiliki status: `available`, `in_use`
 * Status akan diperbarui otomatis saat proses booking dan return
 
+
+
+###📤 **Export Excel – Vehicle Booking**
+
+Admin dapat mengunduh data pemesanan kendaraan dalam format Excel (.xlsx)
+
+Data yang diekspor mencakup:
+
+Informasi kendaraan
+Pengguna pemesan
+Waktu booking dan pengembalian
+Status persetujuan
+Driver yang ditugaskan (jika ada)
+Konsumsi BBM dan odometer
+
+
+Berguna untuk pelaporan bulanan, audit, atau kebutuhan administrasi lainnya
 ---
 
 ## 🧰 Tech Stack
