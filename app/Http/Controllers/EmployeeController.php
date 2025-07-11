@@ -13,7 +13,7 @@ class EmployeeController extends Controller
 {
     public function dashboard()
     {   
-        $vehicleBooking = VehicleBooking::with(['vehicle', 'user', 'driver','approvedByLevel1', 'approvedByLevel2'])->where('user_id', Auth::id())->get();
+        $vehicleBooking = VehicleBooking::with(['vehicle', 'user', 'driver','approvedByLevel1', 'approvedByLevel2'])->where([['user_id', Auth::id()], ['is_returned', false]])->get();
         $bookingHistory = BookingHistory::with('vehicleBooking')
     ->whereHas('vehicleBooking', fn ($q) => $q->where('user_id', Auth::id()))
     ->get();
@@ -31,6 +31,7 @@ class EmployeeController extends Controller
     ->where([
         ['user_id', '=', Auth::id()],
         ['status', '=', 'approved_2'],
+        ['is_returned' ,'=', false]
     ])
     ->first();
 
@@ -61,7 +62,7 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
 
-        $existingBooking = VehicleBooking::where('user_id', $request->user_id)
+        $existingBooking = VehicleBooking::where([['user_id', $request->user_id], ['is_returned', false]])
         ->whereIn('status', ['pending', 'approved_1', 'approved_2']) 
         ->first();
 
@@ -77,10 +78,6 @@ class EmployeeController extends Controller
         ]);
 
         $booking = VehicleBooking::create($validated);
-
-        Vehicle::where('id', $validated['vehicle_id'])->update([
-            'availability_status' => 'in_use',
-        ]);
 
    activity()
     ->causedBy(Auth::id())

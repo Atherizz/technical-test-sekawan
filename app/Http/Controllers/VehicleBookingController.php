@@ -43,9 +43,10 @@ class VehicleBookingController extends Controller
     {
         Gate::authorize('manager');
 
+
         $vehicleBooking = VehicleBooking::findOrFail($id);
 
-        if (!$vehicleBooking->vehicle->isAvailableFor()) {
+        if ($vehicleBooking->vehicle->operational_status !== 'active' || $vehicleBooking->vehicle->availability_status === 'in_use') {
             return redirect('/admin/dashboard/vehicle_booking')->with('error', 'Vehicle already in use or under maintenance!');
         }
 
@@ -55,6 +56,12 @@ class VehicleBookingController extends Controller
             'approved_by_level_1' => Auth::id()
 
         ]);
+
+        $vehicle = Vehicle::findOrFail($vehicleBooking->vehicle->id);
+        $vehicle->update([
+    'availability_status' => 'booked'
+]);
+
 
         activity()
             ->causedBy(Auth::id())
@@ -77,6 +84,12 @@ class VehicleBookingController extends Controller
             'approved_at_level_2' => now(),
             'approved_by_level_2' => Auth::id()
         ]);
+
+                $vehicle = Vehicle::findOrFail($vehicleBooking->vehicle->id);
+        $vehicle->update([
+    'availability_status' => 'in_use'
+]);
+
 
         activity()
             ->causedBy(Auth::id())

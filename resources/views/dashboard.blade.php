@@ -55,6 +55,8 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vehicle</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Schedule</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Approval</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Return Status
+                            </th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Driver</th>
                         </tr>
                     </thead>
@@ -75,6 +77,18 @@
                                     </div>
 
                                 </td>
+                                <td class="px-6 py-4">
+                                    @if ($booking->is_returned)
+                                        <span class="text-green-600 font-semibold flex items-center gap-1">
+                                            ✅ <span>Yes</span>
+                                        </span>
+                                    @else
+                                        <span class="text-red-600 font-semibold flex items-center gap-1">
+                                            ❌ <span>No</span>
+                                        </span>
+                                    @endif
+                                </td>
+
                                 <td class="px-6 py-4">
                                     <div class="text-blue-600 font-medium">{{ $booking->driver->name ?? '-' }}</div>
                                 </td>
@@ -119,7 +133,7 @@
                         @foreach ($bookingHistory as $history)
                             <tr>
                                 <td class="px-6 py-4 font-medium">
-                                    BOOK-{{ str_pad($booking->id, 3, '0', STR_PAD_LEFT) }}
+                                    BOOK-{{ str_pad($history->id, 3, '0', STR_PAD_LEFT) }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $history->vehicleBooking->vehicle->brand ?? '-' }}

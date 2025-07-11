@@ -12,11 +12,6 @@ class Vehicle extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function isAvailableFor()
-{
-    return  $this->operational_status === 'active' && $this->availability_status === 'available';
-}
-
     public function siteLocation(): BelongsTo {
         return $this->belongsTo(SiteLocation::class);
     }
