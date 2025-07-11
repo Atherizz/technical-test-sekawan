@@ -7,21 +7,6 @@
 
 ---
 
-## ✨ Tentang Vehicle Booking System
-
-Platform ini dikembangkan sebagai solusi pemesanan dan pengelolaan kendaraan yang efisien dan aman. Fokus utama aplikasi adalah memastikan bahwa setiap pemesanan terkontrol, kendaraan selalu dalam kondisi prima, dan pengguna dapat melakukan pelaporan kondisi setelah penggunaan secara mandiri.
-
----
-
-## 🎯 Tujuan Pengembangan
-
-* 🚙 Mempermudah peminjaman kendaraan dinas secara sistematis
-* ✅ Menyediakan sistem persetujuan berjenjang untuk transparansi dan kontrol internal
-* 📋 Mendukung pencatatan histori perjalanan dan kondisi kendaraan secara akurat
-* 👨‍✈️ Melacak ketersediaan dan status pengemudi dalam sistem
-* 📊 Memberikan dashboard manajemen untuk admin agar mudah melakukan monitoring
-
----
 
 ## 🔍 Fitur-Fitur Utama
 
@@ -29,8 +14,8 @@ Platform ini dikembangkan sebagai solusi pemesanan dan pengelolaan kendaraan yan
 
 Peminjaman kendaraan melalui alur persetujuan bertingkat:
 
-* **Level 1 Approval:** Biasanya supervisor atau atasan langsung
-* **Level 2 Approval:** Pihak manajemen/administrator
+* **Level 1 Approval:** Pihak manajemen/administrator
+* **Level 2 Approval:** Supervisor
 
 ### 🧾 **Self Booking & Driver Assignment**
 
@@ -84,8 +69,8 @@ Peminjaman kendaraan melalui alur persetujuan bertingkat:
 ### 📥 Clone Repository
 
 ```bash
-git clone <https://github.com/username/vehicle-booking-system.git>
-cd vehicle-booking-system
+git clone <https://github.com/Atherizz/technical-test-sekawan.git>
+cd technical-test-sekawan
 ```
 
 ### 📦 Install Dependency
