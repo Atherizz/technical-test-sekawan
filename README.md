@@ -112,6 +112,8 @@ php artisan migrate --seed
 
 ---
 
+
+
 ## 🔐 Demo Credentials
 
 | Role       | Email                                                   | Password |
@@ -121,6 +123,12 @@ php artisan migrate --seed
 | Manager    | [manager@example.com](mailto:manager@example.com)       | password |
 | Employee   | [employee@example.com](mailto:employee@example.com)     | password |
 
+### Physical Data Model Fitur Pemesananan Kendaraan
+![Physical Data Model](public/img/physical_data_model.png)
+
+### Activity Diagram Untuk Fitur Pemesanan Kendaraan
+
+![Activity Diagram](public/img/activity_diagram.drawio.png)
 
 
 
@@ -168,10 +176,9 @@ Merupakan **pengguna utama** yang melakukan peminjaman kendaraan:
 
 * Akses peminjaman dibatasi hanya untuk pengguna terdaftar
 * Terdapat pembatasan **maksimal satu booking aktif** per user
-* Semua data booking dan histori bersifat **terproteksi dan tersimpan secara internal**
 * Validasi ketat pada setiap input untuk menjaga integritas data
 
----
+
 
 
 

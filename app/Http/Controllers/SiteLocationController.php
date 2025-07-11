@@ -32,18 +32,9 @@ class SiteLocationController extends Controller
 
         SiteLocation::create($validated);
 
-        return redirect('/dashboard/site-locations')->with('success', 'Location created!');
+        return redirect('/admin/dashboard/site_location')->with('success', 'Location created!');
     }
 
-    public function show(SiteLocation $siteLocation)
-    {
-        
-
-        return view('dashboard.site_locations.show', [
-            'title' => 'Detail Location',
-            'location' => $siteLocation
-        ]);
-    }
 
     public function edit(SiteLocation $siteLocation)
     {
@@ -65,12 +56,12 @@ class SiteLocationController extends Controller
 
         $siteLocation->update($validated);
 
-        return redirect('/dashboard/site-locations')->with('success', 'Location updated!');
+        return redirect('/admin/dashboard/site_location')->with('success', 'Location updated!');
     }
 
     public function destroy(SiteLocation $siteLocation)
     {
         SiteLocation::destroy($siteLocation->id);
-        return redirect('/dashboard/site-locations')->with('success', 'Location deleted!');
+        return redirect('/admin/dashboard/site_location')->with('success', 'Location deleted!');
     }
 }

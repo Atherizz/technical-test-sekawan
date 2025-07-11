@@ -23,8 +23,8 @@ class VehicleController extends Controller
         return view('dashboard.vehicles.create', [
             'title' => 'Add Vehicle',
             'vehicle' => Vehicle::all(),
-            'locations' => SiteLocation::all(),
-            'vendors' => RentalVendor::all()
+            'siteLocations' => SiteLocation::all(),
+            'rentalVendors' => RentalVendor::all()
         ]);
     }
 
@@ -33,18 +33,16 @@ class VehicleController extends Controller
         $validate = $request->validate([
             'license_plate' => 'required|unique:vehicles',
             'brand' => 'required',
-            'model' => 'required',
-            'year' => 'required|digits:4',
-            'vehicle_type_id' => 'required|exists:vehicle_types,id',
+            'vehicle_type' => 'required|in:passenger,cargo',
             'site_location_id' => 'required|exists:site_locations,id',
-            'ownership_status' => 'required|in:company_owned,rented',
+            'ownership_status' => 'required|in:company owned,rented',
             'rental_vendor_id' => 'nullable|exists:rental_vendors,id',
             'operational_status' => 'required|in:active,in_service,inactive',
         ]);
 
         Vehicle::create($validate);
 
-        return redirect('/dashboard/vehicles')->with('success', 'Vehicle added successfully!');
+        return redirect('/admin/dashboard/vehicles')->with('success', 'Vehicle added successfully!');
     }
 
     public function edit(Vehicle $vehicle)
@@ -53,8 +51,8 @@ class VehicleController extends Controller
         return view('dashboard.vehicles.edit', [
             'title' => 'Edit Vehicle',
             'vehicle' => $vehicle,
-            'locations' => SiteLocation::all(),
-            'vendors' => RentalVendor::all()
+            'siteLocations' => SiteLocation::all(),
+            'rentalVendors' => RentalVendor::all()
         ]);
     }
 
@@ -64,33 +62,22 @@ class VehicleController extends Controller
         $validate = $request->validate([
             'license_plate' => 'required|unique:vehicles,license_plate,' . $vehicle->id,
             'brand' => 'required',
-            'model' => 'required',
-            'year' => 'required|digits:4',
-            'vehicle_type_id' => 'required|exists:vehicle_types,id',
+            'vehicle_type' => 'required|in:passenger,cargo',
             'site_location_id' => 'required|exists:site_locations,id',
-            'ownership_status' => 'required|in:company_owned,rented',
+            'ownership_status' => 'required|in:company owned,rented',
             'rental_vendor_id' => 'nullable|exists:rental_vendors,id',
             'operational_status' => 'required|in:active,in_service,inactive',
         ]);
 
         $vehicle->update($validate);
 
-        return redirect('/dashboard/vehicles')->with('success', 'Vehicle updated successfully!');
+        return redirect('/admin/dashboard/vehicles')->with('success', 'Vehicle updated successfully!');
     }
 
     public function destroy(Vehicle $vehicle)
     {
         Vehicle::destroy($vehicle->id);
-        return redirect('/dashboard/vehicles')->with('success', 'Vehicle deleted successfully!');
+        return redirect('/admin/dashboard/vehicles')->with('success', 'Vehicle deleted successfully!');
     }
 
-    public function show(Vehicle $vehicle)
-    {
-
-        // $vehicle = Vehicle::with(['vehicleType', 'siteLocation', 'rentalVendor'])->findOrFail($id);
-        return view('dashboard.vehicles.show', [
-            'title' => 'Vehicle Detail',
-            'vehicle' => $vehicle->load(['vehicleType', 'siteLocation', 'rentalVendor'])
-        ]);
-    }
 }

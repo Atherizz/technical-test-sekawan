@@ -6,9 +6,9 @@
                 <h1 class="text-2xl font-bold text-gray-800">Vehicle Management</h1>
                 <p class="text-gray-600">Manage your fleet vehicles and their details</p>
             </div>
-            <button class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg flex items-center">
+            <a href="{{ route('vehicles.create') }}" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg flex items-center">
                 <i class="fas fa-plus mr-2"></i> Add Vehicle
-            </button>
+            </a>
         </div>
 
         <!-- Vehicle Table -->
@@ -82,13 +82,22 @@
                                     </span>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-blue-600 hover:text-blue-900 mr-3">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="text-red-600 hover:text-red-900">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+  <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-3">
+                                        <a href="{{ route('vehicles.edit', $item->id) }}"
+                                            class="text-blue-600 hover:text-blue-900">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('vehicles.destroy', $item->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this vehicle?')"
+                                            style="display: inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

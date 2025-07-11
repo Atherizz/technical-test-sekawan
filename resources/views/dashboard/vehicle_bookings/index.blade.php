@@ -53,6 +53,11 @@
                 <a href="?status=approved_2"
                     class="px-3 py-1 rounded-md border border-gray-300 hover:bg-green-200 text-green-800">Approved Level
                     2</a>
+
+                <a href="/admin/dashboard/vehicle_booking/export/excel"
+                    class="ml-auto px-4 py-2 rounded-md bg-primary-600 text-white hover:bg-primary-700 text-sm flex items-center">
+                    <i class="fas fa-file-excel mr-2"></i> Export Excel
+                </a>
             </div>
         </div>
 
@@ -141,7 +146,8 @@
                                                 </button>
                                             </form>
 
-                                            <form action="{{ route('vehicle_booking.destroy', $booking->id) }}" method="POST"
+                                            <form action="{{ route('vehicle_booking.destroy', $booking->id) }}"
+                                                method="POST"
                                                 onsubmit="return confirm('Are you sure you want to reject and remove this booking?')">
                                                 @csrf
                                                 @method('DELETE')
@@ -167,7 +173,8 @@
                                                     <i class="fas fa-check mr-1"></i> Approve L2
                                                 </button>
                                             </form>
-                                            <form action="{{ route('vehicle_booking.destroy', $booking->id) }}" method="POST"
+                                            <form action="{{ route('vehicle_booking.destroy', $booking->id) }}"
+                                                method="POST"
                                                 onsubmit="return confirm('Are you sure you want to reject and remove this booking?')">
                                                 @csrf
                                                 @method('DELETE')

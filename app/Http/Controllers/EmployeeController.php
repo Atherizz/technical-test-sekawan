@@ -76,11 +76,16 @@ class EmployeeController extends Controller
             'driver_id' => 'nullable|exists:drivers,id'
         ]);
 
-        VehicleBooking::create($validated);
+        $booking = VehicleBooking::create($validated);
 
         Vehicle::where('id', $validated['vehicle_id'])->update([
             'availability_status' => 'in_use',
         ]);
+
+   activity()
+    ->causedBy(Auth::id())
+    ->performedOn($booking)
+    ->log("Mengajukan pemesanan kendaraan (Booking ID: {$booking->id})");
 
         return redirect('/dashboard')->with('success', 'Booking success!');
     }

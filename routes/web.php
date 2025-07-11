@@ -8,19 +8,14 @@ use App\Http\Controllers\SiteLocationController;
 use App\Http\Controllers\VehicleBookingController;
 use App\Http\Controllers\VehicleController;
 use App\Models\BookingHistory;
+use App\Models\Vehicle;
+use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::get('/return_vehicle', function () {
-//     return view('return_vehicle');
-// })->middleware(['auth', 'verified'])->name('return_vehicle');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,9 +30,18 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('dashboard.dashboard');
-    })->name('admin.dashboard');
+Route::get('/admin/dashboard', function () {
+    return view('dashboard.dashboard', [
+        'totalVehicles' => Vehicle::count(),
+        'operatingVehicles' => Vehicle::where('availability_status', 'in_use')->count(),
+        'onMaintenance' => Vehicle::where('operational_status', 'in_service')->count(),
+        'availableVehicles' => Vehicle::where('availability_status', 'available')->count(),
+        'recentVehicleStatus' => Vehicle::latest('updated_at')->take(5)->get(),
+        'recentActivities' => Activity::latest()->take(5)->get(),
+    ]);
+})->name('admin.dashboard');
+
+    });
     Route::resource('/admin/dashboard/drivers', DriverController::class);
     Route::resource('/admin/dashboard/maintenance_schedule', MaintenanceScheduleController::class);
     Route::resource('/admin/dashboard/site_location', SiteLocationController::class);
@@ -46,13 +50,14 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('/admin/dashboard/vehicle_booking', VehicleBookingController::class);
     Route::put('/admin/dashboard/vehicle_bookings/{id}/approve-level1', [VehicleBookingController::class, 'managerApprove'])->name('bookings.approve.level1');
     Route::put('/admin/dashboard/vehicle_bookings/{id}/approve-level2', [VehicleBookingController::class, 'supervisorApprove'])->name('bookings.approve.level2');
+    Route::get('/admin/dashboard/vehicle_booking/export/excel', [VehicleBookingController::class, 'exportExcel']);
 
     Route::get('/admin/dashboard/booking_history', function () {
             return view('dashboard.booking_histories.index', [
             'bookingHistories' => BookingHistory::with('vehicleBooking.vehicle', 'vehicleBooking.user')->get()  
         ]);
     });
-});
+
 
 
 require __DIR__ . '/auth.php';

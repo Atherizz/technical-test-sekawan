@@ -30,23 +30,12 @@ class MaintenanceScheduleController extends Controller
             'vehicle_id' => 'required|exists:vehicles,id',
             'maintenance_date' => 'required|date',
             'description' => 'required|string',
-            'maintenance_type' => 'required|in:minor,major',
             'status' => 'required|in:scheduled,completed',
         ]);
 
         MaintenanceSchedule::create($validated);
 
-        return redirect('/dashboard/maintenance-schedules')->with('success', 'Maintenance added!');
-    }
-
-    public function show(MaintenanceSchedule $maintenanceSchedule)
-    {
-
-
-        return view('dashboard.maintenance.show', [
-            'title' => 'Maintenance Detail',
-            'maintenance' => $maintenanceSchedule
-        ]);
+        return redirect('/admin/dashboard/maintenance_schedule')->with('success', 'Maintenance added!');
     }
 
     public function edit(MaintenanceSchedule $maintenanceSchedule)
@@ -64,19 +53,18 @@ class MaintenanceScheduleController extends Controller
             'vehicle_id' => 'required|exists:vehicles,id',
             'maintenance_date' => 'required|date',
             'description' => 'required|string',
-            'maintenance_type' => 'required|in:minor,major',
             'status' => 'required|in:scheduled,completed',
         ]);
 
 
         $maintenanceSchedule->update($validated);
 
-        return redirect('/dashboard/maintenance-schedules')->with('success', 'Maintenance updated!');
+        return redirect('/admin/dashboard/maintenance_schedule')->with('success', 'Maintenance updated!');
     }
 
     public function destroy(MaintenanceSchedule $maintenanceSchedule)
     {
         MaintenanceSchedule::destroy($maintenanceSchedule->id);
-        return redirect('/dashboard/maintenance-schedules')->with('success', 'Maintenance deleted!');
+        return redirect('/admin/dashboard/maintenance_schedule')->with('success', 'Maintenance deleted!');
     }
 }

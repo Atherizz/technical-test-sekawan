@@ -5,9 +5,10 @@
                 <h1 class="text-2xl font-bold text-gray-800"> Location Management</h1>
                 <p class="text-gray-600">Manage your Locations and their details</p>
             </div>
-            <button class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg flex items-center">
+            <a href="{{ route('site_location.create') }}"
+                class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg flex items-center">
                 <i class="fas fa-plus mr-2"></i> Add location Location
-            </button>
+            </a>
         </div>
 
         <!-- Vehicle Table -->
@@ -22,9 +23,9 @@
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Location Name</th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Location Type</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Location Type</th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Address</th>
@@ -33,73 +34,39 @@
                                 Actions</th>
                         </tr>
                     </thead>
-<tbody class="bg-white divide-y divide-gray-200">
-    @foreach ($locations as $location)
-        <tr>
-            <td class="px-6 py-4 whitespace-nowrap font-medium">
-                SITE-{{ str_pad($location->id, 3, '0', STR_PAD_LEFT) }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ $location->location_name }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                {{ ucfirst(str_replace('_', ' ', $location->location_type)) }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ $location->address }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <button class="text-blue-600 hover:text-blue-900 mr-3">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="text-red-600 hover:text-red-900">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-        </tr>
-    @endforeach
-</tbody>
-
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach ($locations as $location)
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium">
+                                    SITE-{{ str_pad($location->id, 3, '0', STR_PAD_LEFT) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $location->location_name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ ucfirst(str_replace('_', ' ', $location->location_type)) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $location->address }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-3">
+                                        <a href="{{ route('site_location.edit', $location->id) }}"
+                                            class="text-blue-600 hover:text-blue-900">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('site_location.destroy', $location->id) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this location?')"
+                                            style="display: inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
-            <!-- Pagination -->
-            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                <div class="flex-1 flex justify-between sm:hidden">
-                    <a href="#"
-                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                        Previous </a>
-                    <a href="#"
-                        class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                        Next </a>
-                </div>
-                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                    <div>
-                        <p class="text-sm text-gray-700">
-                            Showing <span class="font-medium">1</span> to <span class="font-medium">5</span> of <span
-                                class="font-medium">42</span> results
-                        </p>
-                    </div>
-                    <div>
-                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                            <a href="#"
-                                class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">Previous</span>
-                                <i class="fas fa-chevron-left"></i>
-                            </a>
-                            <a href="#" aria-current="page"
-                                class="z-10 bg-primary-50 border-primary-500 text-primary-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                1 </a>
-                            <a href="#"
-                                class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                2 </a>
-                            <a href="#"
-                                class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                3 </a>
-                            <a href="#"
-                                class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">Next</span>
-                                <i class="fas fa-chevron-right"></i>
-                            </a>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 </x-admin>

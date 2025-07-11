@@ -32,7 +32,7 @@ class DriverController extends Controller
 
         Driver::create($validated);
 
-        return redirect('/dashboard/drivers')->with('success', 'Driver created!');
+        return redirect('/admin/dashboard/drivers')->with('success', 'Driver created!');
     }
 
     public function show(Driver $driver)
@@ -61,12 +61,12 @@ class DriverController extends Controller
 
         $driver->update($validated);
 
-        return redirect('/dashboard/drivers')->with('success', 'Driver updated!');
+        return redirect('/admin/dashboard/drivers')->with('success', 'Driver updated!');
     }
 
     public function destroy(Driver $driver)
     {
         Driver::destroy($driver->id);
-        return redirect('/dashboard/drivers')->with('success', 'Driver deleted!');
+        return redirect('/admin/dashboard/drivers')->with('success', 'Driver deleted!');
     }
 }

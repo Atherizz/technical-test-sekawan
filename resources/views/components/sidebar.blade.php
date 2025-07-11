@@ -13,17 +13,10 @@
             <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">DASHBOARD</h3>
             <ul class="space-y-1">
                 <li>
-                    <a href="#"
+                    <a href="/admin/dashboard"
                         class="flex items-center space-x-3 p-3 rounded-lg bg-primary-50 text-primary-700 font-medium">
                         <i class="fas fa-chart-pie w-5"></i>
                         <span>Overview</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition">
-                        <i class="fas fa-chart-line w-5"></i>
-                        <span>Analytics</span>
                     </a>
                 </li>
             </ul>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportVehicleBooking;
 use Illuminate\Http\Request;
 use App\Models\VehicleBooking;
 use App\Models\Vehicle;
@@ -9,13 +10,14 @@ use App\Models\User;
 use App\Models\Driver;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VehicleBookingController extends Controller
 {
     public function index()
     {
         $query = VehicleBooking::with(['vehicle', 'user', 'driver'])->where([
-            ['status', '!=', 'rejected'],
+
             ['is_returned', '=', false]
         ]);
 
@@ -31,28 +33,15 @@ class VehicleBookingController extends Controller
         ]);
     }
 
-    public function create()
+    public function exportExcel()
     {
-        return view('dashboard.vehicle_bookings.create', [
-            'title' => 'Create Booking',
-            'vehicles' => Vehicle::all(),
-            'users' => User::all(),
-            'drivers' => Driver::all()
-        ]);
+        return Excel::download(new ExportVehicleBooking, "vehicle_booking.xlsx");
     }
 
 
-
-    public function show(VehicleBooking $vehicleBooking)
-    {
-        return view('dashboard.vehicle_bookings.show', [
-            'title' => 'Booking Detail',
-            'booking' => $vehicleBooking->load(['vehicle', 'user', 'driver'])
-        ]);
-    }
     public function managerApprove(int $id)
     {
-         Gate::authorize('manager');
+        Gate::authorize('manager');
 
         $vehicleBooking = VehicleBooking::findOrFail($id);
 
@@ -67,6 +56,11 @@ class VehicleBookingController extends Controller
 
         ]);
 
+        activity()
+            ->causedBy(Auth::id())
+            ->performedOn($vehicleBooking)
+            ->log("Menyetujui booking level 1 (Booking ID: {$vehicleBooking->id})");
+
         return redirect('/admin/dashboard/vehicle_booking')->with('success', 'status updated!');
     }
 
@@ -75,7 +69,7 @@ class VehicleBookingController extends Controller
 
 
         Gate::authorize('supervisor');
-        
+
         $vehicleBooking = VehicleBooking::findOrFail($id);
 
         $vehicleBooking->update([
@@ -84,6 +78,12 @@ class VehicleBookingController extends Controller
             'approved_by_level_2' => Auth::id()
         ]);
 
+        activity()
+            ->causedBy(Auth::id())
+            ->performedOn($vehicleBooking)
+            ->log("Menyetujui booking level 2 (Booking ID: {$vehicleBooking->id})");
+
+
         return redirect('/admin/dashboard/vehicle_booking')->with('success', 'status updated!');
     }
 
@@ -91,6 +91,11 @@ class VehicleBookingController extends Controller
     public function destroy(VehicleBooking $vehicleBooking)
     {
         $vehicleBooking->delete();
+
+        activity()
+            ->causedBy(Auth::id())
+            ->performedOn($vehicleBooking)
+            ->log("Menolak dan menghapus booking (Booking ID: {$vehicleBooking->id})");
         return redirect('/admin/dashboard/vehicle_booking')->with('success', 'Booking rejected!');
     }
 }
